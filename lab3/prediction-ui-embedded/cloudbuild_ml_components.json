@@ -24,12 +24,12 @@
         "deploy",
         "prediction-service",
         "--image",
-        "gcr.io/$PROJECT_ID/prediction-ui-embedded:0.0.1"
+        "gcr.io/$PROJECT_ID/prediction-ui-embedded:0.0.1",
         "--region",
         "us-central1",
         "--platform",
         "managed",
-        "--allow authenticated"
+        "--allow-unauthenticated"
       ]
     }
   ]
