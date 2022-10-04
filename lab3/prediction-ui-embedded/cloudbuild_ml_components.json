@@ -12,7 +12,7 @@
     {
       "name": "gcr.io/cloud-builders/docker",
       "arg": [
-        "push"
+        "push",
         "gcr.io/$PROJECT_ID/prediction-ui-embedded:0.01"
       ]
     },
