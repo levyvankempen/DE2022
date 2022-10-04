@@ -1,0 +1,36 @@
+{
+  "steps": [
+    {
+      "name": "gcr.io/cloud-builders/docker",
+      "arg": [
+        "build",
+        "-t",
+        "gcr.io/$PROJECT_ID/prediction-ui-embedded:0.0.1",
+        "./lab3/prediction-ui-embedded"
+      ]
+    },
+    {
+      "name": "gcr.io/cloud-builders/docker",
+      "arg": [
+        "push"
+        "gcr.io/$PROJECT_ID/prediction-ui-embedded:0.01"
+      ]
+    },
+    {
+      "name": "gcr.io/cloudsdktool/cloud-sdk",
+      "entrypoint": "gcloud",
+      "arg": [
+        "run",
+        "deploy",
+        "prediction-service",
+        "--image",
+        "gcr.io/$PROJECT_ID/prediction-ui-embedded:0.0.1"
+        "--region",
+        "us-central1",
+        "--platform",
+        "managed",
+        "--allow authenticated"
+      ]
+    }
+  ]
+}
