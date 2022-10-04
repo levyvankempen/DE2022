@@ -2,7 +2,7 @@
   "steps": [
     {
       "name": "gcr.io/cloud-builders/docker",
-      "arg": [
+      "args": [
         "build",
         "-t",
         "gcr.io/$PROJECT_ID/prediction-ui-embedded:0.0.1",
@@ -11,7 +11,7 @@
     },
     {
       "name": "gcr.io/cloud-builders/docker",
-      "arg": [
+      "args": [
         "push",
         "gcr.io/$PROJECT_ID/prediction-ui-embedded:0.01"
       ]
@@ -19,7 +19,7 @@
     {
       "name": "gcr.io/cloudsdktool/cloud-sdk",
       "entrypoint": "gcloud",
-      "arg": [
+      "args": [
         "run",
         "deploy",
         "prediction-service",
