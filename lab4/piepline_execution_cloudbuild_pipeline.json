@@ -13,7 +13,7 @@
        "args": [
            "--name=diabetes-predictor-pipeline",           
 		   "--pipeline_def=./lab4/diabetes_prdictor_training_pipeline.json",
-           "--pipeline_root=gs://de_jads_temp",         
+           "--pipeline_root=gs://de_jads_temp_2093373",         
 		   "--parameter_dict=./parameters.json"
         ]
    }
