@@ -4,7 +4,7 @@
        "name": "gcr.io/cloud-builders/gsutil",
        "args": [
            "cp",           
-		   "gs://data_de2022/parameters.json",
+		   "gs://data_de2022_2093373/parameters.json",
            ".",
         ]
    },
