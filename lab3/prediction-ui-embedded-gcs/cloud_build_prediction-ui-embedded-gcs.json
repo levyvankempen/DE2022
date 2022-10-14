@@ -4,7 +4,7 @@
        "name": "gcr.io/cloud-builders/gsutil",
        "args": [
            "cp",
-		   "your GSC model file url, e.g, gs://model_repo_de2022/model.h5",
+	       "gs://model_repo_de2022_2093373/model.h5",
            "./lab3/prediction-ui-embedded-gcs"
         ]
     },
@@ -48,7 +48,7 @@
         "managed",
         "--allow-unauthenticated",
         "--update-env-vars",
-        "PROJECT_ID=MODEL_NAME=your_model_name",
+        "PROJECT_ID=de2022-362707, MODEL_NAME=model.h5",
         "--no-cpu-throttling",
         "--memory",
         "4 Gi"
