@@ -1,0 +1,704 @@
+{
+  "pipelineSpec": {
+    "components": {
+      "comp-compare-model": {
+        "executorLabel": "exec-compare-model",
+        "inputDefinitions": {
+          "parameters": {
+            "lr_metrics": {
+              "type": "STRING"
+            },
+            "svc_metrics": {
+              "type": "STRING"
+            }
+          }
+        },
+        "outputDefinitions": {
+          "parameters": {
+            "Output": {
+              "type": "STRING"
+            }
+          }
+        }
+      },
+      "comp-condition-1": {
+        "dag": {
+          "tasks": {
+            "predict-svc": {
+              "cachingOptions": {
+                "enableCache": true
+              },
+              "componentRef": {
+                "name": "comp-predict-svc"
+              },
+              "inputs": {
+                "artifacts": {
+                  "features": {
+                    "componentInputArtifact": "pipelineparam--download-data-2-dataset"
+                  }
+                },
+                "parameters": {
+                  "model_repo": {
+                    "componentInputParameter": "pipelineparam--model_repo"
+                  },
+                  "project_id": {
+                    "componentInputParameter": "pipelineparam--project_id"
+                  }
+                }
+              },
+              "taskInfo": {
+                "name": "predict-svc"
+              }
+            }
+          }
+        },
+        "inputDefinitions": {
+          "artifacts": {
+            "pipelineparam--download-data-2-dataset": {
+              "artifactType": {
+                "schemaTitle": "system.Dataset",
+                "schemaVersion": "0.0.1"
+              }
+            }
+          },
+          "parameters": {
+            "pipelineparam--compare-model-Output": {
+              "type": "STRING"
+            },
+            "pipelineparam--model_repo": {
+              "type": "STRING"
+            },
+            "pipelineparam--project_id": {
+              "type": "STRING"
+            }
+          }
+        }
+      },
+      "comp-condition-2": {
+        "dag": {
+          "tasks": {
+            "predict-lr": {
+              "cachingOptions": {
+                "enableCache": true
+              },
+              "componentRef": {
+                "name": "comp-predict-lr"
+              },
+              "inputs": {
+                "artifacts": {
+                  "features": {
+                    "componentInputArtifact": "pipelineparam--download-data-2-dataset"
+                  }
+                },
+                "parameters": {
+                  "model_repo": {
+                    "componentInputParameter": "pipelineparam--model_repo"
+                  },
+                  "project_id": {
+                    "componentInputParameter": "pipelineparam--project_id"
+                  }
+                }
+              },
+              "taskInfo": {
+                "name": "predict-lr"
+              }
+            }
+          }
+        },
+        "inputDefinitions": {
+          "artifacts": {
+            "pipelineparam--download-data-2-dataset": {
+              "artifactType": {
+                "schemaTitle": "system.Dataset",
+                "schemaVersion": "0.0.1"
+              }
+            }
+          },
+          "parameters": {
+            "pipelineparam--compare-model-Output": {
+              "type": "STRING"
+            },
+            "pipelineparam--model_repo": {
+              "type": "STRING"
+            },
+            "pipelineparam--project_id": {
+              "type": "STRING"
+            }
+          }
+        }
+      },
+      "comp-download-data": {
+        "executorLabel": "exec-download-data",
+        "inputDefinitions": {
+          "parameters": {
+            "bucket": {
+              "type": "STRING"
+            },
+            "file_name": {
+              "type": "STRING"
+            },
+            "project_id": {
+              "type": "STRING"
+            }
+          }
+        },
+        "outputDefinitions": {
+          "artifacts": {
+            "dataset": {
+              "artifactType": {
+                "schemaTitle": "system.Dataset",
+                "schemaVersion": "0.0.1"
+              }
+            }
+          }
+        }
+      },
+      "comp-download-data-2": {
+        "executorLabel": "exec-download-data-2",
+        "inputDefinitions": {
+          "parameters": {
+            "bucket": {
+              "type": "STRING"
+            },
+            "file_name": {
+              "type": "STRING"
+            },
+            "project_id": {
+              "type": "STRING"
+            }
+          }
+        },
+        "outputDefinitions": {
+          "artifacts": {
+            "dataset": {
+              "artifactType": {
+                "schemaTitle": "system.Dataset",
+                "schemaVersion": "0.0.1"
+              }
+            }
+          }
+        }
+      },
+      "comp-predict-lr": {
+        "executorLabel": "exec-predict-lr",
+        "inputDefinitions": {
+          "artifacts": {
+            "features": {
+              "artifactType": {
+                "schemaTitle": "system.Dataset",
+                "schemaVersion": "0.0.1"
+              }
+            }
+          },
+          "parameters": {
+            "model_repo": {
+              "type": "STRING"
+            },
+            "project_id": {
+              "type": "STRING"
+            }
+          }
+        },
+        "outputDefinitions": {
+          "artifacts": {
+            "results": {
+              "artifactType": {
+                "schemaTitle": "system.Dataset",
+                "schemaVersion": "0.0.1"
+              }
+            }
+          }
+        }
+      },
+      "comp-predict-svc": {
+        "executorLabel": "exec-predict-svc",
+        "inputDefinitions": {
+          "artifacts": {
+            "features": {
+              "artifactType": {
+                "schemaTitle": "system.Dataset",
+                "schemaVersion": "0.0.1"
+              }
+            }
+          },
+          "parameters": {
+            "model_repo": {
+              "type": "STRING"
+            },
+            "project_id": {
+              "type": "STRING"
+            }
+          }
+        },
+        "outputDefinitions": {
+          "artifacts": {
+            "results": {
+              "artifactType": {
+                "schemaTitle": "system.Dataset",
+                "schemaVersion": "0.0.1"
+              }
+            }
+          }
+        }
+      },
+      "comp-train-lr": {
+        "executorLabel": "exec-train-lr",
+        "inputDefinitions": {
+          "artifacts": {
+            "features": {
+              "artifactType": {
+                "schemaTitle": "system.Dataset",
+                "schemaVersion": "0.0.1"
+              }
+            }
+          },
+          "parameters": {
+            "model_repo": {
+              "type": "STRING"
+            },
+            "project_id": {
+              "type": "STRING"
+            }
+          }
+        },
+        "outputDefinitions": {
+          "parameters": {
+            "Output": {
+              "type": "STRING"
+            }
+          }
+        }
+      },
+      "comp-train-svc": {
+        "executorLabel": "exec-train-svc",
+        "inputDefinitions": {
+          "artifacts": {
+            "features": {
+              "artifactType": {
+                "schemaTitle": "system.Dataset",
+                "schemaVersion": "0.0.1"
+              }
+            }
+          },
+          "parameters": {
+            "model_repo": {
+              "type": "STRING"
+            },
+            "project_id": {
+              "type": "STRING"
+            }
+          }
+        },
+        "outputDefinitions": {
+          "parameters": {
+            "Output": {
+              "type": "STRING"
+            }
+          }
+        }
+      }
+    },
+    "deploymentSpec": {
+      "executors": {
+        "exec-compare-model": {
+          "container": {
+            "args": [
+              "--executor_input",
+              "{{$}}",
+              "--function_to_execute",
+              "compare_model"
+            ],
+            "command": [
+              "sh",
+              "-c",
+              "\nif ! [ -x \"$(command -v pip)\" ]; then\n    python3 -m ensurepip || python3 -m ensurepip --user || apt-get install python3-pip\nfi\n\nPIP_DISABLE_PIP_VERSION_CHECK=1 python3 -m pip install --quiet     --no-warn-script-location 'kfp==1.8.14' && \"$0\" \"$@\"\n",
+              "sh",
+              "-ec",
+              "program_path=$(mktemp -d)\nprintf \"%s\" \"$0\" > \"$program_path/ephemeral_component.py\"\npython3 -m kfp.v2.components.executor_main                         --component_module_path                         \"$program_path/ephemeral_component.py\"                         \"$@\"\n",
+              "\nimport kfp\nfrom kfp.v2 import dsl\nfrom kfp.v2.dsl import *\nfrom typing import *\n\ndef compare_model(svc_metrics: dict, lr_metrics: dict) -> str:\n    import logging\n    import json\n    import sys\n    logging.basicConfig(stream=sys.stdout, level=logging.INFO)\n    logging.info(svc_metrics)\n    logging.info(lr_metrics)\n    if svc_metrics.get(\"accuracy\") > lr_metrics.get(\"accuracy\"):\n        return \"SVC\"\n    else :\n        return \"LR\"\n\n"
+            ],
+            "image": "python:3.10.7-slim"
+          }
+        },
+        "exec-download-data": {
+          "container": {
+            "args": [
+              "--executor_input",
+              "{{$}}",
+              "--function_to_execute",
+              "download_data"
+            ],
+            "command": [
+              "sh",
+              "-c",
+              "\nif ! [ -x \"$(command -v pip)\" ]; then\n    python3 -m ensurepip || python3 -m ensurepip --user || apt-get install python3-pip\nfi\n\nPIP_DISABLE_PIP_VERSION_CHECK=1 python3 -m pip install --quiet     --no-warn-script-location 'pandas' 'google-cloud-storage' 'kfp==1.8.14' && \"$0\" \"$@\"\n",
+              "sh",
+              "-ec",
+              "program_path=$(mktemp -d)\nprintf \"%s\" \"$0\" > \"$program_path/ephemeral_component.py\"\npython3 -m kfp.v2.components.executor_main                         --component_module_path                         \"$program_path/ephemeral_component.py\"                         \"$@\"\n",
+              "\nimport kfp\nfrom kfp.v2 import dsl\nfrom kfp.v2.dsl import *\nfrom typing import *\n\ndef download_data(project_id: str, bucket: str, file_name: str, dataset: Output[Dataset]):\n    '''download data'''\n    from google.cloud import storage\n    import pandas as pd\n    import logging \n    import sys\n\n    logging.basicConfig(stream=sys.stdout, level=logging.INFO)\n\n    # Downloaing the file from a google bucket \n    client = storage.Client(project=project_id)\n    bucket = client.get_bucket(bucket)\n    blob = bucket.blob(file_name)\n    blob.download_to_filename(dataset.path + \".csv\")\n    logging.info('Downloaded Data!')    \n    logging.info(dataset)\n\n"
+            ],
+            "image": "python:3.10.7-slim"
+          }
+        },
+        "exec-download-data-2": {
+          "container": {
+            "args": [
+              "--executor_input",
+              "{{$}}",
+              "--function_to_execute",
+              "download_data"
+            ],
+            "command": [
+              "sh",
+              "-c",
+              "\nif ! [ -x \"$(command -v pip)\" ]; then\n    python3 -m ensurepip || python3 -m ensurepip --user || apt-get install python3-pip\nfi\n\nPIP_DISABLE_PIP_VERSION_CHECK=1 python3 -m pip install --quiet     --no-warn-script-location 'pandas' 'google-cloud-storage' 'kfp==1.8.14' && \"$0\" \"$@\"\n",
+              "sh",
+              "-ec",
+              "program_path=$(mktemp -d)\nprintf \"%s\" \"$0\" > \"$program_path/ephemeral_component.py\"\npython3 -m kfp.v2.components.executor_main                         --component_module_path                         \"$program_path/ephemeral_component.py\"                         \"$@\"\n",
+              "\nimport kfp\nfrom kfp.v2 import dsl\nfrom kfp.v2.dsl import *\nfrom typing import *\n\ndef download_data(project_id: str, bucket: str, file_name: str, dataset: Output[Dataset]):\n    '''download data'''\n    from google.cloud import storage\n    import pandas as pd\n    import logging \n    import sys\n\n    logging.basicConfig(stream=sys.stdout, level=logging.INFO)\n\n    # Downloaing the file from a google bucket \n    client = storage.Client(project=project_id)\n    bucket = client.get_bucket(bucket)\n    blob = bucket.blob(file_name)\n    blob.download_to_filename(dataset.path + \".csv\")\n    logging.info('Downloaded Data!')    \n    logging.info(dataset)\n\n"
+            ],
+            "image": "python:3.10.7-slim"
+          }
+        },
+        "exec-predict-lr": {
+          "container": {
+            "args": [
+              "--executor_input",
+              "{{$}}",
+              "--function_to_execute",
+              "predict_lr"
+            ],
+            "command": [
+              "sh",
+              "-c",
+              "\nif ! [ -x \"$(command -v pip)\" ]; then\n    python3 -m ensurepip || python3 -m ensurepip --user || apt-get install python3-pip\nfi\n\nPIP_DISABLE_PIP_VERSION_CHECK=1 python3 -m pip install --quiet     --no-warn-script-location 'pandas' 'scikit-learn' 'kfp==1.8.14' && \"$0\" \"$@\"\n",
+              "sh",
+              "-ec",
+              "program_path=$(mktemp -d)\nprintf \"%s\" \"$0\" > \"$program_path/ephemeral_component.py\"\npython3 -m kfp.v2.components.executor_main                         --component_module_path                         \"$program_path/ephemeral_component.py\"                         \"$@\"\n",
+              "\nimport kfp\nfrom kfp.v2 import dsl\nfrom kfp.v2.dsl import *\nfrom typing import *\n\ndef predict_lr(project_id: str, model_repo: str, features: Input[Dataset], results: Output[Dataset]):\n    import pandas as pd\n    import pickle  \n    from google.cloud import storage\n    import json\n    import logging\n    import sys\n    import os\n\n    logging.basicConfig(stream=sys.stdout, level=logging.INFO)\n\n    df = pd.read_csv(features.path+\".csv\")\n\n    client = storage.Client(project=project_id)\n    bucket = client.get_bucket(model_repo)\n    blob = bucket.blob('lrmodel.pkl')\n    filename = '/tmp/local_model.pkl'\n    blob.download_to_filename(filename)\n\n    #Loading the model\n    model = pickle.load(open(filename, 'rb'))\n\n    xNew = df[['fixed acidity', 'volatile acidity', 'citric acid', 'residual sugar', 'chlorides', 'free sulfur dioxide',\n 'total sulfur dioxide', 'density', 'pH', 'sulphates', 'alcohol']]\n\n    dfcp = df.copy()   \n    y_classes = model.predict(xNew)\n    logging.info(y_classes)\n    dfcp['pclass'] = y_classes.tolist()\n    dfcp.to_csv(results.path + \".csv\", index=False, encoding='utf-8-sig')\n\n"
+            ],
+            "image": "python:3.10.7-slim"
+          }
+        },
+        "exec-predict-svc": {
+          "container": {
+            "args": [
+              "--executor_input",
+              "{{$}}",
+              "--function_to_execute",
+              "predict_svc"
+            ],
+            "command": [
+              "sh",
+              "-c",
+              "\nif ! [ -x \"$(command -v pip)\" ]; then\n    python3 -m ensurepip || python3 -m ensurepip --user || apt-get install python3-pip\nfi\n\nPIP_DISABLE_PIP_VERSION_CHECK=1 python3 -m pip install --quiet     --no-warn-script-location 'pandas' 'scikit-learn' 'kfp==1.8.14' && \"$0\" \"$@\"\n",
+              "sh",
+              "-ec",
+              "program_path=$(mktemp -d)\nprintf \"%s\" \"$0\" > \"$program_path/ephemeral_component.py\"\npython3 -m kfp.v2.components.executor_main                         --component_module_path                         \"$program_path/ephemeral_component.py\"                         \"$@\"\n",
+              "\nimport kfp\nfrom kfp.v2 import dsl\nfrom kfp.v2.dsl import *\nfrom typing import *\n\ndef predict_svc(project_id: str, model_repo: str, features: Input[Dataset], results: Output[Dataset]):\n    import pandas as pd\n    import pickle  \n    from google.cloud import storage\n    import json\n    import logging\n    import sys\n    import os\n\n    logging.basicConfig(stream=sys.stdout, level=logging.INFO)\n\n    df = pd.read_csv(features.path+\".csv\")  \n\n    client = storage.Client(project=project_id)\n    bucket = client.get_bucket(model_repo)\n    blob = bucket.blob('svcmodel.pkl')\n    filename = '/tmp/local_model.pkl'\n    blob.download_to_filename(filename)\n\n    #Loading the model\n    model = pickle.load(open(filename, 'rb'))\n\n    xNew = df[['fixed acidity', 'volatile acidity', 'citric acid', 'residual sugar', 'chlorides', 'free sulfur dioxide',\n 'total sulfur dioxide', 'density', 'pH', 'sulphates', 'alcohol']]\n\n    dfcp = df.copy()   \n    y_classes = model.predict(xNew)\n    logging.info(y_classes)\n    dfcp['pclass'] = y_classes.tolist()\n    dfcp.to_csv(results.path + \".csv\", index=False, encoding='utf-8-sig')\n\n"
+            ],
+            "image": "python:3.10.7-slim"
+          }
+        },
+        "exec-train-lr": {
+          "container": {
+            "args": [
+              "--executor_input",
+              "{{$}}",
+              "--function_to_execute",
+              "train_lr"
+            ],
+            "command": [
+              "sh",
+              "-c",
+              "\nif ! [ -x \"$(command -v pip)\" ]; then\n    python3 -m ensurepip || python3 -m ensurepip --user || apt-get install python3-pip\nfi\n\nPIP_DISABLE_PIP_VERSION_CHECK=1 python3 -m pip install --quiet     --no-warn-script-location 'google-cloud-storage' 'pandas' 'scikit-learn' 'kfp==1.8.14' && \"$0\" \"$@\"\n",
+              "sh",
+              "-ec",
+              "program_path=$(mktemp -d)\nprintf \"%s\" \"$0\" > \"$program_path/ephemeral_component.py\"\npython3 -m kfp.v2.components.executor_main                         --component_module_path                         \"$program_path/ephemeral_component.py\"                         \"$@\"\n",
+              "\nimport kfp\nfrom kfp.v2 import dsl\nfrom kfp.v2.dsl import *\nfrom typing import *\n\ndef train_lr (features: Input[Dataset], project_id: str, model_repo: str) -> dict:\n    '''train a LogisticRegression with default parameters'''\n    import pandas as pd\n    from sklearn.linear_model import LogisticRegression\n    from sklearn import metrics\n    from sklearn.model_selection import train_test_split\n    from google.cloud import storage\n    import json\n    import logging \n    import sys\n    import os\n    import pickle  \n\n    logging.basicConfig(stream=sys.stdout, level=logging.INFO)\n\n    logging.info('print before loading df')\n    df = pd.read_csv(features.path+\".csv\")\n\n    logging.info('df loaded')\n    logging.info(df.columns)        \n\n    x_train, x_test, y_train, y_test = train_test_split(df.drop('class',axis=1), \n                                                    df['class'], test_size=0.30, \n                                                    random_state=101)\n    model = LogisticRegression()\n    model.fit(x_train,y_train)\n\n    metrics = {\"accuracy\": model.score(x_test, y_test)}\n    logging.info(metrics)\n\n    # Save the model localy\n    local_file = '/tmp/local_model.pkl'\n    with open(local_file, 'wb') as file:  \n        pickle.dump(model, file)\n    # write out output\n\n    # Save to GCS as model.pkl\n    client = storage.Client(project=project_id)\n    bucket = client.get_bucket(model_repo)\n    blob = bucket.blob('lrmodel.pkl')\n   # Upload the locally saved model\n    blob.upload_from_filename(local_file)\n\n    print(\"Saved the model to GCP bucket : \" + model_repo)\n    return metrics\n\n"
+            ],
+            "image": "python:3.10.7-slim"
+          }
+        },
+        "exec-train-svc": {
+          "container": {
+            "args": [
+              "--executor_input",
+              "{{$}}",
+              "--function_to_execute",
+              "train_svc"
+            ],
+            "command": [
+              "sh",
+              "-c",
+              "\nif ! [ -x \"$(command -v pip)\" ]; then\n    python3 -m ensurepip || python3 -m ensurepip --user || apt-get install python3-pip\nfi\n\nPIP_DISABLE_PIP_VERSION_CHECK=1 python3 -m pip install --quiet     --no-warn-script-location 'google-cloud-storage' 'pandas' 'scikit-learn' 'kfp==1.8.14' && \"$0\" \"$@\"\n",
+              "sh",
+              "-ec",
+              "program_path=$(mktemp -d)\nprintf \"%s\" \"$0\" > \"$program_path/ephemeral_component.py\"\npython3 -m kfp.v2.components.executor_main                         --component_module_path                         \"$program_path/ephemeral_component.py\"                         \"$@\"\n",
+              "\nimport kfp\nfrom kfp.v2 import dsl\nfrom kfp.v2.dsl import *\nfrom typing import *\n\ndef train_svc (features: Input[Dataset], project_id: str, model_repo: str) -> dict:\n    '''train a SVM with default parameters'''\n    import pandas as pd\n    from sklearn.svm import SVC\n    from sklearn import metrics\n    from sklearn.model_selection import train_test_split\n    from google.cloud import storage\n    import json\n    import logging \n    import sys\n    import os\n    import pickle  \n\n    logging.basicConfig(stream=sys.stdout, level=logging.INFO)\n    logging.info('print before loading df')\n\n    df = pd.read_csv(features.path+\".csv\") \n\n    logging.info('df loaded')\n\n    logging.info(df.columns)        \n\n    x_train, x_test, y_train, y_test = train_test_split(df.drop('class',axis=1), \n                                                    df['class'], test_size=0.30, \n                                                    random_state=101)\n    logging.info('split')\n\n    model = SVC()\n    model.fit(x_train,y_train)\n\n    logging.info('model fit')\n\n    metrics = {\"accuracy\": model.score(x_test, y_test)}\n    logging.info(metrics)\n\n    # Save the model localy\n    local_file = '/tmp/local_model.pkl'\n    with open(local_file, 'wb') as file:  \n        pickle.dump(model, file)\n    # write out output\n\n    # Save to GCS as model.pkl\n    client = storage.Client(project=project_id)\n    bucket = client.get_bucket(model_repo)\n    blob = bucket.blob('svcmodel.pkl')\n   # Upload the locally saved model\n    blob.upload_from_filename(local_file)\n\n    print(\"Saved the model to GCP bucket : \" + model_repo)\n    return metrics\n\n"
+            ],
+            "image": "python:3.10.7-slim"
+          }
+        }
+      }
+    },
+    "pipelineInfo": {
+      "name": "whitewine-predictor-training-pipeline"
+    },
+    "root": {
+      "dag": {
+        "tasks": {
+          "compare-model": {
+            "cachingOptions": {
+              "enableCache": true
+            },
+            "componentRef": {
+              "name": "comp-compare-model"
+            },
+            "dependentTasks": [
+              "train-lr",
+              "train-svc"
+            ],
+            "inputs": {
+              "parameters": {
+                "lr_metrics": {
+                  "taskOutputParameter": {
+                    "outputParameterKey": "Output",
+                    "producerTask": "train-lr"
+                  }
+                },
+                "svc_metrics": {
+                  "taskOutputParameter": {
+                    "outputParameterKey": "Output",
+                    "producerTask": "train-svc"
+                  }
+                }
+              }
+            },
+            "taskInfo": {
+              "name": "compare-model"
+            }
+          },
+          "condition-1": {
+            "componentRef": {
+              "name": "comp-condition-1"
+            },
+            "dependentTasks": [
+              "compare-model",
+              "download-data-2"
+            ],
+            "inputs": {
+              "artifacts": {
+                "pipelineparam--download-data-2-dataset": {
+                  "taskOutputArtifact": {
+                    "outputArtifactKey": "dataset",
+                    "producerTask": "download-data-2"
+                  }
+                }
+              },
+              "parameters": {
+                "pipelineparam--compare-model-Output": {
+                  "taskOutputParameter": {
+                    "outputParameterKey": "Output",
+                    "producerTask": "compare-model"
+                  }
+                },
+                "pipelineparam--model_repo": {
+                  "componentInputParameter": "model_repo"
+                },
+                "pipelineparam--project_id": {
+                  "componentInputParameter": "project_id"
+                }
+              }
+            },
+            "taskInfo": {
+              "name": "condition-1"
+            },
+            "triggerPolicy": {
+              "condition": "inputs.parameters['pipelineparam--compare-model-Output'].string_value == 'SVC'"
+            }
+          },
+          "condition-2": {
+            "componentRef": {
+              "name": "comp-condition-2"
+            },
+            "dependentTasks": [
+              "compare-model",
+              "download-data-2"
+            ],
+            "inputs": {
+              "artifacts": {
+                "pipelineparam--download-data-2-dataset": {
+                  "taskOutputArtifact": {
+                    "outputArtifactKey": "dataset",
+                    "producerTask": "download-data-2"
+                  }
+                }
+              },
+              "parameters": {
+                "pipelineparam--compare-model-Output": {
+                  "taskOutputParameter": {
+                    "outputParameterKey": "Output",
+                    "producerTask": "compare-model"
+                  }
+                },
+                "pipelineparam--model_repo": {
+                  "componentInputParameter": "model_repo"
+                },
+                "pipelineparam--project_id": {
+                  "componentInputParameter": "project_id"
+                }
+              }
+            },
+            "taskInfo": {
+              "name": "condition-2"
+            },
+            "triggerPolicy": {
+              "condition": "inputs.parameters['pipelineparam--compare-model-Output'].string_value == 'LR'"
+            }
+          },
+          "download-data": {
+            "cachingOptions": {
+              "enableCache": true
+            },
+            "componentRef": {
+              "name": "comp-download-data"
+            },
+            "inputs": {
+              "parameters": {
+                "bucket": {
+                  "componentInputParameter": "data_bucket"
+                },
+                "file_name": {
+                  "componentInputParameter": "trainset_filename"
+                },
+                "project_id": {
+                  "componentInputParameter": "project_id"
+                }
+              }
+            },
+            "taskInfo": {
+              "name": "download-data"
+            }
+          },
+          "download-data-2": {
+            "cachingOptions": {
+              "enableCache": true
+            },
+            "componentRef": {
+              "name": "comp-download-data-2"
+            },
+            "dependentTasks": [
+              "train-lr",
+              "train-svc"
+            ],
+            "inputs": {
+              "parameters": {
+                "bucket": {
+                  "componentInputParameter": "data_bucket"
+                },
+                "file_name": {
+                  "componentInputParameter": "testset_filename"
+                },
+                "project_id": {
+                  "componentInputParameter": "project_id"
+                }
+              }
+            },
+            "taskInfo": {
+              "name": "download-data-2"
+            }
+          },
+          "train-lr": {
+            "cachingOptions": {
+              "enableCache": true
+            },
+            "componentRef": {
+              "name": "comp-train-lr"
+            },
+            "dependentTasks": [
+              "download-data"
+            ],
+            "inputs": {
+              "artifacts": {
+                "features": {
+                  "taskOutputArtifact": {
+                    "outputArtifactKey": "dataset",
+                    "producerTask": "download-data"
+                  }
+                }
+              },
+              "parameters": {
+                "model_repo": {
+                  "componentInputParameter": "model_repo"
+                },
+                "project_id": {
+                  "componentInputParameter": "project_id"
+                }
+              }
+            },
+            "taskInfo": {
+              "name": "train-lr"
+            }
+          },
+          "train-svc": {
+            "cachingOptions": {
+              "enableCache": true
+            },
+            "componentRef": {
+              "name": "comp-train-svc"
+            },
+            "dependentTasks": [
+              "download-data"
+            ],
+            "inputs": {
+              "artifacts": {
+                "features": {
+                  "taskOutputArtifact": {
+                    "outputArtifactKey": "dataset",
+                    "producerTask": "download-data"
+                  }
+                }
+              },
+              "parameters": {
+                "model_repo": {
+                  "componentInputParameter": "model_repo"
+                },
+                "project_id": {
+                  "componentInputParameter": "project_id"
+                }
+              }
+            },
+            "taskInfo": {
+              "name": "train-svc"
+            }
+          }
+        }
+      },
+      "inputDefinitions": {
+        "parameters": {
+          "data_bucket": {
+            "type": "STRING"
+          },
+          "model_repo": {
+            "type": "STRING"
+          },
+          "project_id": {
+            "type": "STRING"
+          },
+          "testset_filename": {
+            "type": "STRING"
+          },
+          "trainset_filename": {
+            "type": "STRING"
+          }
+        }
+      }
+    },
+    "schemaVersion": "2.0.0",
+    "sdkVersion": "kfp-1.8.14"
+  },
+  "runtimeConfig": {
+    "gcsOutputDirectory": "gs://de_jads_temp_2093373"
+  }
+}
