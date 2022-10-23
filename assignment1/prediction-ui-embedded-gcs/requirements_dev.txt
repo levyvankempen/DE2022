@@ -1,7 +1,6 @@
 flask
 pandas
 keras
-pickle
 tensorflow
 numpy
 h5py
