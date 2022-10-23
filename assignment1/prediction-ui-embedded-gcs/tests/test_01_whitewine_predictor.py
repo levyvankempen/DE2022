@@ -19,5 +19,5 @@ class TestWhitewinePredictor:
             data = pd.read_json(json_file)
         dp = whitewine_predictor.WhitewinePredictor()
         status = dp.predict_single_record(data)
-        assert bool(status[0]) is not None
-        assert bool(status[0]) is False
+        assert bool(status) is not None
+        assert bool(status) is False
