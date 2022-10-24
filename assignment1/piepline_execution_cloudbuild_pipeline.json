@@ -11,7 +11,7 @@
    {
        "name": "gcr.io/$PROJECT_ID/pipline_executor:0.0.1",
        "args": [
-           "--name=diabetes-predictor-pipeline",           
+           "--name=whitewine-predictor-pipeline",           
 		   "--pipeline_def=./assignment1/whitewine_predictor_training_pipeline.json",
            "--pipeline_root=gs://de_jads_temp_2093373",         
 		   "--parameter_dict=./parameters.json"
