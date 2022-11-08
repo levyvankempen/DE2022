@@ -1,6 +1,6 @@
 FROM bitnami/python:3.10 as build
 
-FROM bitnami/spark:3.3
+FROM bitnami/spark:3.3.0
 
 COPY --from=build /opt/bitnami/python/ /opt/bitnami/python/
 # Update the guava library needed by the gcs connector
