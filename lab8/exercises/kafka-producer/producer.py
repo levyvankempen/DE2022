@@ -21,8 +21,8 @@ def kafka_python_producer_async(producer, msg, topic):
 
 
 if __name__ == '__main__':
-    producer = KafkaProducer(bootstrap_servers='34.134.194.165:9092')  # use your VM's external IP Here!
-    with open('C:\jads\DE2022\lab8\exercises\data\game\game_data_split1.csv') as f:
+    producer = KafkaProducer(bootstrap_servers='35.188.85.227:9092')  # use your VM's external IP Here!
+    with open('C:\jads\DE2022\lab8\exercises\gamescore\game_data_split1.csv') as f:
         lines = f.readlines()
 
     for line in lines:
