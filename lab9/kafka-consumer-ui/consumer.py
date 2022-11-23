@@ -4,11 +4,11 @@ from threading import Thread
 
 from kafka import KafkaConsumer, TopicPartition
 
-from app import Wordcount
 from db_util import insert_or_update
 
 
 def read_from_topic(kafka_consumer, topic):
+    from models import Wordcount
     kafka_consumer.subscribe(topics=[topic])
     for msg in kafka_consumer:
         value = msg.value.decode("utf-8")
@@ -42,7 +42,7 @@ class KafkaMessageConsumer(Thread):
 
     def __init__(self):
         Thread.__init__(self)
-        self.consumer = KafkaConsumer(bootstrap_servers='VM_IP:9092',  # use your VM's external IP Here!
+        self.consumer = KafkaConsumer(bootstrap_servers='35.225.88.148:9092',  # use your VM's external IP Here!
                                       auto_offset_reset='earliest',
                                       consumer_timeout_ms=10000)
         self.start()
