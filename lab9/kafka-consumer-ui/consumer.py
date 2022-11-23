@@ -35,6 +35,9 @@ def read_from_topic_with_partition_offset(kafka_consumer, topic):
             break
 
 
+# if you want to learn about threading in python, check the following article
+# https://realpython.com/intro-to-python-threading/
+
 class KafkaMessageConsumer(Thread):
 
     def __init__(self):

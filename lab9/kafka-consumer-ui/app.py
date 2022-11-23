@@ -1,6 +1,9 @@
 from flask import Flask, render_template
 from flask_sqlalchemy import SQLAlchemy
 
+# check the following article if you want to know more about SQLAlchemy and Flask
+# https://www.digitalocean.com/community/tutorials/how-to-use-flask-sqlalchemy-to-interact-with-databases-in-a-flask-application
+
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///wordcounts.sqlite3'
 db = SQLAlchemy(app)
