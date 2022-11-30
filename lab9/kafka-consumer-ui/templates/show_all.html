@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <style>
+        table.GeneratedTable {
+            width: 100%;
+            background-color: #ffffff;
+            border-collapse: collapse;
+            border-width: 2px;
+            border-color: #ffcc00;
+            border-style: solid;
+            color: #000000;
+        }
+
+        table.GeneratedTable td, table.GeneratedTable th {
+            border-width: 2px;
+            border-color: #ffcc00;
+            border-style: solid;
+            padding: 3px;
+        }
+
+        table.GeneratedTable thead {
+            background-color: #ffcc00;
+        }
+    </style>
+    <title>Word Counts</title>
+
+</head>
+<body>
+
+<h1 class="title">Word Count Table</h1>
+<table class="GeneratedTable">
+    <thead>
+    <tr>
+        <th>Word</th>
+        <th>Count</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for  wordcount in wordcounts %}
+        <tr>
+            <td>{{ wordcount.word }}</td>
+            <td>{{ wordcount.count }}</td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+</body>
+</html>
